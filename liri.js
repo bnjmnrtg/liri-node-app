@@ -82,22 +82,26 @@ if (inputString == 'movie-this') {
 }
 
 //Do what it says!!!!!!!!!!!!!!!!
-if (inputString == 'do-what-it-says') {
+ if (inputString == 'do-what-it-says') {
     fs.readFile('random.txt', 'utf8', function(err, data) {
         // console.log(data)
         var dataArr = data.split(',');
         // console.log(dataArr)
         var command = dataArr[0];
         var media = dataArr[1];
+        // console.log(command)
             if (command == 'my-tweets') {
-                console.log('==================================================================');
-                client.get('statuses/user_timeline', parameters, function(err, tweets, response) {
-                    for (var i = 0; i < tweets.length; i++) {
-                        // console.log(tweets[i])
-                        console.log('Tweet # ' + (tweets.length - i) + ': ' + tweets[i].text);
-                        console.log('-----------------------------------------------------------------------');
+                // console.log(command)
+                console.log('==========================Twiiter===================================');
+                client.get('statuses/user_timeline', parameters, function(err, tweets) {
+                    if (!err) {
+                        for (var i = 0; i < tweets.length; i++) {
+                            // console.log(tweets[i])
+                            console.log('Tweet # ' + (tweets.length - i) + ': ' + tweets[i].text);
+                            console.log('-----------------------------------------------------------------------');
+                        }
                     }
-                });
+                })
             }
 
             if (command == 'spotify-this-song') {
@@ -121,33 +125,34 @@ if (inputString == 'do-what-it-says') {
                 })
             }
 
-    //         if (command == 'movie-this') {
-    //             var movie = media;
-    //             request('www.omdbapi.com/?t=' + movie + '&y=&plot=short&r=json', function(error, response, body) {
-    //                 if (!error && response.statusCode == 200) {
-    //                     console.log('==========================OMDB===================================');
-    //                     console.log('Title: ' + JSON.parse(body)['Title']);
-    //                     console.log('----');
-    //                     console.log('IMDB Rating: ' + JSON.parse(body)['imdbRating']);
-    //                     console.log('----');
-    //                     console.log('Plot: ' + JSON.parse(body)['Plot']);
-    //                     console.log('----');
-    //                     console.log('Actors: ' + JSON.parse(body)['Actors']);
-    //                     console.log('----');
-    //                     console.log('Year: ' + JSON.parse(body)['Year']);
-    //                     console.log('----');
-    //                     console.log('Runtime: ' + JSON.parse(body)['Runtime']);
-    //                     console.log('----');
-    //                     console.log('Rated: ' + JSON.parse(body)['Rated']);
-    //                     console.log('==================================================================');
-    //                     console.log(' ');
-    //                 }
-    //             })
+            if (command == 'movie-this') {
+                // console.log(media)
+                var movie = media;
+                request('http://www.omdbapi.com/?t=' + movie + '&y=&plot=short&r=json', function(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        console.log('==========================OMDB===================================');
+                        console.log('Title: ' + JSON.parse(body)['Title']);
+                        console.log('----');
+                        console.log('IMDB Rating: ' + JSON.parse(body)['imdbRating']);
+                        console.log('----');
+                        console.log('Plot: ' + JSON.parse(body)['Plot']);
+                        console.log('----');
+                        console.log('Actors: ' + JSON.parse(body)['Actors']);
+                        console.log('----');
+                        console.log('Year: ' + JSON.parse(body)['Year']);
+                        console.log('----');
+                        console.log('Runtime: ' + JSON.parse(body)['Runtime']);
+                        console.log('----');
+                        console.log('Rated: ' + JSON.parse(body)['Rated']);
+                        console.log('==================================================================');
+                        console.log(' ');
+                    }
+                })
 
-    //         }
+            }
 
 
-    //     }
+        
     })
 
 }
