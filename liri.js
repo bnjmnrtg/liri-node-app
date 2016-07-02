@@ -81,7 +81,7 @@ if (inputString == 'movie-this') {
     });
 }
 
-//Do what it says!!!!!!!!!!!!!!!!
+//Do what it says!!!!!!!!!!! WORKING !!!!!!!!!!!!!!!!!!!
  if (inputString == 'do-what-it-says') {
     fs.readFile('random.txt', 'utf8', function(err, data) {
         // console.log(data)
